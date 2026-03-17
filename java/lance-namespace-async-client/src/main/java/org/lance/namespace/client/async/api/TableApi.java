@@ -5415,20 +5415,44 @@ public class TableApi {
       HttpRequest.Builder localVarRequestBuilder =
           queryTableRequestBuilder(id, queryTableRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
                 if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("queryTable", localVarResponse));
+                  try {
+                    InputStream responseBody = localVarResponse.body();
+                    String responseText = null;
+                    try {
+                      responseText =
+                          responseBody == null ? null : new String(responseBody.readAllBytes());
+                    } finally {
+                      if (responseBody != null) {
+                        responseBody.close();
+                      }
+                    }
+                    String message =
+                        formatExceptionMessage(
+                            "queryTable", localVarResponse.statusCode(), responseText);
+                    return CompletableFuture.failedFuture(
+                        new ApiException(
+                            localVarResponse.statusCode(),
+                            message,
+                            localVarResponse.headers(),
+                            responseText));
+                  } catch (IOException e) {
+                    return CompletableFuture.failedFuture(new ApiException(e));
+                  }
                 }
                 try {
-                  String responseBody = localVarResponse.body();
-                  return CompletableFuture.completedFuture(
-                      responseBody == null || responseBody.isBlank()
-                          ? null
-                          : memberVarObjectMapper.readValue(
-                              responseBody, new TypeReference<byte[]>() {}));
+                  InputStream responseBody = localVarResponse.body();
+                  if (responseBody == null) {
+                    return CompletableFuture.completedFuture(null);
+                  }
+                  try {
+                    return CompletableFuture.completedFuture(responseBody.readAllBytes());
+                  } finally {
+                    responseBody.close();
+                  }
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
@@ -5461,26 +5485,49 @@ public class TableApi {
       HttpRequest.Builder localVarRequestBuilder =
           queryTableRequestBuilder(id, queryTableRequest, delimiter);
       return memberVarHttpClient
-          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofString())
+          .sendAsync(localVarRequestBuilder.build(), HttpResponse.BodyHandlers.ofInputStream())
           .thenComposeAsync(
               localVarResponse -> {
-                if (memberVarAsyncResponseInterceptor != null) {
-                  memberVarAsyncResponseInterceptor.accept(localVarResponse);
-                }
                 if (localVarResponse.statusCode() / 100 != 2) {
-                  return CompletableFuture.failedFuture(
-                      getApiException("queryTable", localVarResponse));
+                  try {
+                    InputStream responseBody = localVarResponse.body();
+                    String responseText = null;
+                    try {
+                      responseText =
+                          responseBody == null ? null : new String(responseBody.readAllBytes());
+                    } finally {
+                      if (responseBody != null) {
+                        responseBody.close();
+                      }
+                    }
+                    String message =
+                        formatExceptionMessage(
+                            "queryTable", localVarResponse.statusCode(), responseText);
+                    return CompletableFuture.failedFuture(
+                        new ApiException(
+                            localVarResponse.statusCode(),
+                            message,
+                            localVarResponse.headers(),
+                            responseText));
+                  } catch (IOException e) {
+                    return CompletableFuture.failedFuture(new ApiException(e));
+                  }
                 }
                 try {
-                  String responseBody = localVarResponse.body();
+                  InputStream responseBody = localVarResponse.body();
+                  byte[] responseBytes = null;
+                  try {
+                    responseBytes = responseBody == null ? null : responseBody.readAllBytes();
+                  } finally {
+                    if (responseBody != null) {
+                      responseBody.close();
+                    }
+                  }
                   return CompletableFuture.completedFuture(
                       new ApiResponse<byte[]>(
                           localVarResponse.statusCode(),
                           localVarResponse.headers().map(),
-                          responseBody == null || responseBody.isBlank()
-                              ? null
-                              : memberVarObjectMapper.readValue(
-                                  responseBody, new TypeReference<byte[]>() {})));
+                          responseBytes));
                 } catch (IOException e) {
                   return CompletableFuture.failedFuture(new ApiException(e));
                 }
