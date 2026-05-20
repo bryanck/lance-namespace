@@ -137,19 +137,22 @@ Class | Method | HTTP request | Description
 *DataApi* | [**alterTableBackfillColumns**](docs/DataApi.md#alterTableBackfillColumns) | **POST** /v1/table/{id}/backfill_column | Trigger an async column backfill job
 *DataApi* | [**analyzeTableQueryPlan**](docs/DataApi.md#analyzeTableQueryPlan) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *DataApi* | [**countTableRows**](docs/DataApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
+*DataApi* | [**createMaterializedView**](docs/DataApi.md#createMaterializedView) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
 *DataApi* | [**createTable**](docs/DataApi.md#createTable) | **POST** /v1/table/{id}/create | Create a table with the given name
 *DataApi* | [**deleteFromTable**](docs/DataApi.md#deleteFromTable) | **POST** /v1/table/{id}/delete | Delete rows from a table
 *DataApi* | [**explainTableQueryPlan**](docs/DataApi.md#explainTableQueryPlan) | **POST** /v1/table/{id}/explain_plan | Get query execution plan explanation
 *DataApi* | [**insertIntoTable**](docs/DataApi.md#insertIntoTable) | **POST** /v1/table/{id}/insert | Insert records into a table
 *DataApi* | [**mergeInsertIntoTable**](docs/DataApi.md#mergeInsertIntoTable) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *DataApi* | [**queryTable**](docs/DataApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
-*DataApi* | [**refreshMaterializedView**](docs/DataApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
+*DataApi* | [**refreshMaterializedView**](docs/DataApi.md#refreshMaterializedView) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
 *DataApi* | [**updateTable**](docs/DataApi.md#updateTable) | **POST** /v1/table/{id}/update | Update rows in a table
 *IndexApi* | [**createTableIndex**](docs/IndexApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table
 *IndexApi* | [**createTableScalarIndex**](docs/IndexApi.md#createTableScalarIndex) | **POST** /v1/table/{id}/create_scalar_index | Create a scalar index on a table
 *IndexApi* | [**describeTableIndexStats**](docs/IndexApi.md#describeTableIndexStats) | **POST** /v1/table/{id}/index/{index_name}/stats | Get table index statistics
 *IndexApi* | [**dropTableIndex**](docs/IndexApi.md#dropTableIndex) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 *IndexApi* | [**listTableIndices**](docs/IndexApi.md#listTableIndices) | **POST** /v1/table/{id}/index/list | List indexes on a table
+*MaterializedViewApi* | [**createMaterializedView**](docs/MaterializedViewApi.md#createMaterializedView) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
+*MaterializedViewApi* | [**refreshMaterializedView**](docs/MaterializedViewApi.md#refreshMaterializedView) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
 *MetadataApi* | [**alterTableAlterColumns**](docs/MetadataApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alterTableDropColumns**](docs/MetadataApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
 *MetadataApi* | [**alterTransaction**](docs/MetadataApi.md#alterTransaction) | **POST** /v1/transaction/{id}/alter | Alter information of a transaction.
@@ -226,7 +229,6 @@ Class | Method | HTTP request | Description
 *TableApi* | [**listTables**](docs/TableApi.md#listTables) | **GET** /v1/namespace/{id}/table/list | List tables in a namespace
 *TableApi* | [**mergeInsertIntoTable**](docs/TableApi.md#mergeInsertIntoTable) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *TableApi* | [**queryTable**](docs/TableApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
-*TableApi* | [**refreshMaterializedView**](docs/TableApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *TableApi* | [**registerTable**](docs/TableApi.md#registerTable) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**renameTable**](docs/TableApi.md#renameTable) | **POST** /v1/table/{id}/rename | Rename a table
 *TableApi* | [**restoreTable**](docs/TableApi.md#restoreTable) | **POST** /v1/table/{id}/restore | Restore table to a specific version
@@ -277,6 +279,8 @@ Class | Method | HTTP request | Description
  - [CommitTableOperation](docs/CommitTableOperation.md)
  - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
+ - [CreateMaterializedViewRequest](docs/CreateMaterializedViewRequest.md)
+ - [CreateMaterializedViewResponse](docs/CreateMaterializedViewResponse.md)
  - [CreateNamespaceRequest](docs/CreateNamespaceRequest.md)
  - [CreateNamespaceResponse](docs/CreateNamespaceResponse.md)
  - [CreateTableIndexRequest](docs/CreateTableIndexRequest.md)
@@ -341,6 +345,7 @@ Class | Method | HTTP request | Description
  - [ListTablesRequest](docs/ListTablesRequest.md)
  - [ListTablesResponse](docs/ListTablesResponse.md)
  - [MatchQuery](docs/MatchQuery.md)
+ - [MaterializedViewUdtfEntry](docs/MaterializedViewUdtfEntry.md)
  - [MergeInsertIntoTableRequest](docs/MergeInsertIntoTableRequest.md)
  - [MergeInsertIntoTableResponse](docs/MergeInsertIntoTableResponse.md)
  - [MultiMatchQuery](docs/MultiMatchQuery.md)

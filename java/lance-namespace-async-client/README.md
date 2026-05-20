@@ -127,6 +127,8 @@ Class | Method | HTTP request | Description
 *DataApi* | [**analyzeTableQueryPlanWithHttpInfo**](docs/DataApi.md#analyzeTableQueryPlanWithHttpInfo) | **POST** /v1/table/{id}/analyze_plan | Analyze query execution plan
 *DataApi* | [**countTableRows**](docs/DataApi.md#countTableRows) | **POST** /v1/table/{id}/count_rows | Count rows in a table
 *DataApi* | [**countTableRowsWithHttpInfo**](docs/DataApi.md#countTableRowsWithHttpInfo) | **POST** /v1/table/{id}/count_rows | Count rows in a table
+*DataApi* | [**createMaterializedView**](docs/DataApi.md#createMaterializedView) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
+*DataApi* | [**createMaterializedViewWithHttpInfo**](docs/DataApi.md#createMaterializedViewWithHttpInfo) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
 *DataApi* | [**createTable**](docs/DataApi.md#createTable) | **POST** /v1/table/{id}/create | Create a table with the given name
 *DataApi* | [**createTableWithHttpInfo**](docs/DataApi.md#createTableWithHttpInfo) | **POST** /v1/table/{id}/create | Create a table with the given name
 *DataApi* | [**deleteFromTable**](docs/DataApi.md#deleteFromTable) | **POST** /v1/table/{id}/delete | Delete rows from a table
@@ -139,8 +141,8 @@ Class | Method | HTTP request | Description
 *DataApi* | [**mergeInsertIntoTableWithHttpInfo**](docs/DataApi.md#mergeInsertIntoTableWithHttpInfo) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *DataApi* | [**queryTable**](docs/DataApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
 *DataApi* | [**queryTableWithHttpInfo**](docs/DataApi.md#queryTableWithHttpInfo) | **POST** /v1/table/{id}/query | Query a table
-*DataApi* | [**refreshMaterializedView**](docs/DataApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
-*DataApi* | [**refreshMaterializedViewWithHttpInfo**](docs/DataApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
+*DataApi* | [**refreshMaterializedView**](docs/DataApi.md#refreshMaterializedView) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
+*DataApi* | [**refreshMaterializedViewWithHttpInfo**](docs/DataApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
 *DataApi* | [**updateTable**](docs/DataApi.md#updateTable) | **POST** /v1/table/{id}/update | Update rows in a table
 *DataApi* | [**updateTableWithHttpInfo**](docs/DataApi.md#updateTableWithHttpInfo) | **POST** /v1/table/{id}/update | Update rows in a table
 *IndexApi* | [**createTableIndex**](docs/IndexApi.md#createTableIndex) | **POST** /v1/table/{id}/create_index | Create an index on a table
@@ -153,6 +155,10 @@ Class | Method | HTTP request | Description
 *IndexApi* | [**dropTableIndexWithHttpInfo**](docs/IndexApi.md#dropTableIndexWithHttpInfo) | **POST** /v1/table/{id}/index/{index_name}/drop | Drop a specific index
 *IndexApi* | [**listTableIndices**](docs/IndexApi.md#listTableIndices) | **POST** /v1/table/{id}/index/list | List indexes on a table
 *IndexApi* | [**listTableIndicesWithHttpInfo**](docs/IndexApi.md#listTableIndicesWithHttpInfo) | **POST** /v1/table/{id}/index/list | List indexes on a table
+*MaterializedViewApi* | [**createMaterializedView**](docs/MaterializedViewApi.md#createMaterializedView) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
+*MaterializedViewApi* | [**createMaterializedViewWithHttpInfo**](docs/MaterializedViewApi.md#createMaterializedViewWithHttpInfo) | **POST** /v1/materialized_view/{id}/create | Create a materialized view
+*MaterializedViewApi* | [**refreshMaterializedView**](docs/MaterializedViewApi.md#refreshMaterializedView) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
+*MaterializedViewApi* | [**refreshMaterializedViewWithHttpInfo**](docs/MaterializedViewApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/materialized_view/{id}/refresh | Trigger an async materialized view refresh
 *MetadataApi* | [**alterTableAlterColumns**](docs/MetadataApi.md#alterTableAlterColumns) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alterTableAlterColumnsWithHttpInfo**](docs/MetadataApi.md#alterTableAlterColumnsWithHttpInfo) | **POST** /v1/table/{id}/alter_columns | Modify existing columns
 *MetadataApi* | [**alterTableDropColumns**](docs/MetadataApi.md#alterTableDropColumns) | **POST** /v1/table/{id}/drop_columns | Remove columns from table
@@ -305,8 +311,6 @@ Class | Method | HTTP request | Description
 *TableApi* | [**mergeInsertIntoTableWithHttpInfo**](docs/TableApi.md#mergeInsertIntoTableWithHttpInfo) | **POST** /v1/table/{id}/merge_insert | Merge insert (upsert) records into a table
 *TableApi* | [**queryTable**](docs/TableApi.md#queryTable) | **POST** /v1/table/{id}/query | Query a table
 *TableApi* | [**queryTableWithHttpInfo**](docs/TableApi.md#queryTableWithHttpInfo) | **POST** /v1/table/{id}/query | Query a table
-*TableApi* | [**refreshMaterializedView**](docs/TableApi.md#refreshMaterializedView) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
-*TableApi* | [**refreshMaterializedViewWithHttpInfo**](docs/TableApi.md#refreshMaterializedViewWithHttpInfo) | **POST** /v1/table/{id}/refresh | Trigger an async materialized view refresh
 *TableApi* | [**registerTable**](docs/TableApi.md#registerTable) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**registerTableWithHttpInfo**](docs/TableApi.md#registerTableWithHttpInfo) | **POST** /v1/table/{id}/register | Register a table to a namespace
 *TableApi* | [**renameTable**](docs/TableApi.md#renameTable) | **POST** /v1/table/{id}/rename | Rename a table
@@ -372,6 +376,8 @@ Class | Method | HTTP request | Description
  - [CommitTableOperation](docs/CommitTableOperation.md)
  - [CommitTableResult](docs/CommitTableResult.md)
  - [CountTableRowsRequest](docs/CountTableRowsRequest.md)
+ - [CreateMaterializedViewRequest](docs/CreateMaterializedViewRequest.md)
+ - [CreateMaterializedViewResponse](docs/CreateMaterializedViewResponse.md)
  - [CreateNamespaceRequest](docs/CreateNamespaceRequest.md)
  - [CreateNamespaceResponse](docs/CreateNamespaceResponse.md)
  - [CreateTableIndexRequest](docs/CreateTableIndexRequest.md)
@@ -436,6 +442,7 @@ Class | Method | HTTP request | Description
  - [ListTablesRequest](docs/ListTablesRequest.md)
  - [ListTablesResponse](docs/ListTablesResponse.md)
  - [MatchQuery](docs/MatchQuery.md)
+ - [MaterializedViewUdtfEntry](docs/MaterializedViewUdtfEntry.md)
  - [MergeInsertIntoTableRequest](docs/MergeInsertIntoTableRequest.md)
  - [MergeInsertIntoTableResponse](docs/MergeInsertIntoTableResponse.md)
  - [MultiMatchQuery](docs/MultiMatchQuery.md)

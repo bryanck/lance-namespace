@@ -36,6 +36,7 @@ import java.util.StringJoiner;
   RefreshMaterializedViewRequest.JSON_PROPERTY_CONCURRENCY,
   RefreshMaterializedViewRequest.JSON_PROPERTY_INTRA_APPLIER_CONCURRENCY,
   RefreshMaterializedViewRequest.JSON_PROPERTY_CLUSTER,
+  RefreshMaterializedViewRequest.JSON_PROPERTY_OUTPUT_LIMIT,
   RefreshMaterializedViewRequest.JSON_PROPERTY_MANIFEST
 })
 @javax.annotation.Generated(
@@ -62,6 +63,9 @@ public class RefreshMaterializedViewRequest {
 
   public static final String JSON_PROPERTY_CLUSTER = "cluster";
   private JsonNullable<String> cluster = JsonNullable.<String>undefined();
+
+  public static final String JSON_PROPERTY_OUTPUT_LIMIT = "output_limit";
+  private JsonNullable<Integer> outputLimit = JsonNullable.<Integer>undefined();
 
   public static final String JSON_PROPERTY_MANIFEST = "manifest";
   private JsonNullable<String> manifest = JsonNullable.<String>undefined();
@@ -257,7 +261,7 @@ public class RefreshMaterializedViewRequest {
   }
 
   /**
-   * Optional cluster name
+   * Optional cluster name (operational override)
    *
    * @return cluster
    */
@@ -282,13 +286,48 @@ public class RefreshMaterializedViewRequest {
     this.cluster = JsonNullable.<String>of(cluster);
   }
 
+  public RefreshMaterializedViewRequest outputLimit(
+      @javax.annotation.Nullable Integer outputLimit) {
+    this.outputLimit = JsonNullable.<Integer>of(outputLimit);
+    return this;
+  }
+
+  /**
+   * Post-trim cap on view row count after expansion. Valid only for chunker materialized views;
+   * returns 400 if set on other kinds.
+   *
+   * @return outputLimit
+   */
+  @javax.annotation.Nullable
+  @JsonIgnore
+  public Integer getOutputLimit() {
+    return outputLimit.orElse(null);
+  }
+
+  @JsonProperty(JSON_PROPERTY_OUTPUT_LIMIT)
+  @JsonInclude(value = JsonInclude.Include.USE_DEFAULTS)
+  public JsonNullable<Integer> getOutputLimit_JsonNullable() {
+    return outputLimit;
+  }
+
+  @JsonProperty(JSON_PROPERTY_OUTPUT_LIMIT)
+  public void setOutputLimit_JsonNullable(JsonNullable<Integer> outputLimit) {
+    this.outputLimit = outputLimit;
+  }
+
+  public void setOutputLimit(@javax.annotation.Nullable Integer outputLimit) {
+    this.outputLimit = JsonNullable.<Integer>of(outputLimit);
+  }
+
   public RefreshMaterializedViewRequest manifest(@javax.annotation.Nullable String manifest) {
     this.manifest = JsonNullable.<String>of(manifest);
     return this;
   }
 
   /**
-   * Optional manifest name
+   * Optional inline JSON-serialized GenevaManifest. Operational override for this refresh only;
+   * does not mutate the view&#39;s snapshotted manifest. When omitted, the manifest stored in the
+   * view&#39;s metadata is used.
    *
    * @return manifest
    */
@@ -333,6 +372,7 @@ public class RefreshMaterializedViewRequest {
         && equalsNullable(
             this.intraApplierConcurrency, refreshMaterializedViewRequest.intraApplierConcurrency)
         && equalsNullable(this.cluster, refreshMaterializedViewRequest.cluster)
+        && equalsNullable(this.outputLimit, refreshMaterializedViewRequest.outputLimit)
         && equalsNullable(this.manifest, refreshMaterializedViewRequest.manifest);
   }
 
@@ -355,6 +395,7 @@ public class RefreshMaterializedViewRequest {
         hashCodeNullable(concurrency),
         hashCodeNullable(intraApplierConcurrency),
         hashCodeNullable(cluster),
+        hashCodeNullable(outputLimit),
         hashCodeNullable(manifest));
   }
 
@@ -378,6 +419,7 @@ public class RefreshMaterializedViewRequest {
         .append(toIndentedString(intraApplierConcurrency))
         .append("\n");
     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+    sb.append("    outputLimit: ").append(toIndentedString(outputLimit)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("}");
     return sb.toString();
@@ -487,6 +529,14 @@ public class RefreshMaterializedViewRequest {
           String.format(
               "%scluster%s=%s",
               prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getCluster()))));
+    }
+
+    // add `output_limit` to the URL query string
+    if (getOutputLimit() != null) {
+      joiner.add(
+          String.format(
+              "%soutput_limit%s=%s",
+              prefix, suffix, ApiClient.urlEncode(ApiClient.valueToString(getOutputLimit()))));
     }
 
     // add `manifest` to the URL query string

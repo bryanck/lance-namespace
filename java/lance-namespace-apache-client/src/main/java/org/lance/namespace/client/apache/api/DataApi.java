@@ -24,6 +24,8 @@ import org.lance.namespace.model.AlterTableBackfillColumnsRequest;
 import org.lance.namespace.model.AlterTableBackfillColumnsResponse;
 import org.lance.namespace.model.AnalyzeTableQueryPlanRequest;
 import org.lance.namespace.model.CountTableRowsRequest;
+import org.lance.namespace.model.CreateMaterializedViewRequest;
+import org.lance.namespace.model.CreateMaterializedViewResponse;
 import org.lance.namespace.model.CreateTableResponse;
 import org.lance.namespace.model.DeleteFromTableRequest;
 import org.lance.namespace.model.DeleteFromTableResponse;
@@ -461,6 +463,111 @@ public class DataApi extends BaseApi {
     String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
 
     TypeReference<Long> localVarReturnType = new TypeReference<Long>() {};
+    return apiClient.invokeAPI(
+        localVarPath,
+        "POST",
+        localVarQueryParams,
+        localVarCollectionQueryParams,
+        localVarQueryStringJoiner.toString(),
+        localVarPostBody,
+        localVarHeaderParams,
+        localVarCookieParams,
+        localVarFormParams,
+        localVarAccept,
+        localVarContentType,
+        localVarAuthNames,
+        localVarReturnType);
+  }
+
+  /**
+   * Create a materialized view Create a materialized view at identifier &#x60;id&#x60;. The view
+   * may be query-backed, UDTF-backed, or chunker-backed, controlled by the &#x60;kind&#x60;
+   * discriminator.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createMaterializedViewRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @return CreateMaterializedViewResponse
+   * @throws ApiException if fails to make API call
+   */
+  public CreateMaterializedViewResponse createMaterializedView(
+      String id, CreateMaterializedViewRequest createMaterializedViewRequest, String delimiter)
+      throws ApiException {
+    return this.createMaterializedView(
+        id, createMaterializedViewRequest, delimiter, Collections.emptyMap());
+  }
+
+  /**
+   * Create a materialized view Create a materialized view at identifier &#x60;id&#x60;. The view
+   * may be query-backed, UDTF-backed, or chunker-backed, controlled by the &#x60;kind&#x60;
+   * discriminator.
+   *
+   * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
+   *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
+   *     For example, &#x60;v1/namespace/$/list&#x60; performs a &#x60;ListNamespace&#x60; on the
+   *     root namespace. (required)
+   * @param createMaterializedViewRequest (required)
+   * @param delimiter An optional delimiter of the &#x60;string identifier&#x60;, following the
+   *     Lance Namespace spec. When not specified, the &#x60;$&#x60; delimiter must be used.
+   *     (optional)
+   * @param additionalHeaders additionalHeaders for this call
+   * @return CreateMaterializedViewResponse
+   * @throws ApiException if fails to make API call
+   */
+  public CreateMaterializedViewResponse createMaterializedView(
+      String id,
+      CreateMaterializedViewRequest createMaterializedViewRequest,
+      String delimiter,
+      Map<String, String> additionalHeaders)
+      throws ApiException {
+    Object localVarPostBody = createMaterializedViewRequest;
+
+    // verify the required parameter 'id' is set
+    if (id == null) {
+      throw new ApiException(
+          400, "Missing the required parameter 'id' when calling createMaterializedView");
+    }
+
+    // verify the required parameter 'createMaterializedViewRequest' is set
+    if (createMaterializedViewRequest == null) {
+      throw new ApiException(
+          400,
+          "Missing the required parameter 'createMaterializedViewRequest' when calling createMaterializedView");
+    }
+
+    // create path and map variables
+    String localVarPath =
+        "/v1/materialized_view/{id}/create"
+            .replaceAll(
+                "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
+
+    StringJoiner localVarQueryStringJoiner = new StringJoiner("&");
+    String localVarQueryParameterBaseName;
+    List<Pair> localVarQueryParams = new ArrayList<Pair>();
+    List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+    Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+    Map<String, String> localVarCookieParams = new HashMap<String, String>();
+    Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+    localVarQueryParams.addAll(apiClient.parameterToPair("delimiter", delimiter));
+
+    localVarHeaderParams.putAll(additionalHeaders);
+
+    final String[] localVarAccepts = {"application/json"};
+    final String localVarAccept = apiClient.selectHeaderAccept(localVarAccepts);
+
+    final String[] localVarContentTypes = {"application/json"};
+    final String localVarContentType = apiClient.selectHeaderContentType(localVarContentTypes);
+
+    String[] localVarAuthNames = new String[] {"OAuth2", "ApiKeyAuth", "BearerAuth"};
+
+    TypeReference<CreateMaterializedViewResponse> localVarReturnType =
+        new TypeReference<CreateMaterializedViewResponse>() {};
     return apiClient.invokeAPI(
         localVarPath,
         "POST",
@@ -1253,8 +1360,8 @@ public class DataApi extends BaseApi {
   }
 
   /**
-   * Trigger an async materialized view refresh Trigger an asynchronous refresh job for a
-   * materialized view backed by table &#x60;id&#x60;. Returns a job ID for tracking.
+   * Trigger an async materialized view refresh Trigger an asynchronous refresh job for materialized
+   * view &#x60;id&#x60;. Returns a job ID for tracking.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -1275,8 +1382,8 @@ public class DataApi extends BaseApi {
   }
 
   /**
-   * Trigger an async materialized view refresh Trigger an asynchronous refresh job for a
-   * materialized view backed by table &#x60;id&#x60;. Returns a job ID for tracking.
+   * Trigger an async materialized view refresh Trigger an asynchronous refresh job for materialized
+   * view &#x60;id&#x60;. Returns a job ID for tracking.
    *
    * @param id &#x60;string identifier&#x60; of an object in a namespace, following the Lance
    *     Namespace spec. When the value is equal to the delimiter, it represents the root namespace.
@@ -1306,7 +1413,7 @@ public class DataApi extends BaseApi {
 
     // create path and map variables
     String localVarPath =
-        "/v1/table/{id}/refresh"
+        "/v1/materialized_view/{id}/refresh"
             .replaceAll(
                 "\\{" + "id" + "\\}", apiClient.escapeString(apiClient.parameterToString(id)));
 

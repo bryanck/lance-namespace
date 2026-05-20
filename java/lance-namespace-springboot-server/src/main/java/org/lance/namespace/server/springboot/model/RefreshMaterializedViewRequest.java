@@ -44,6 +44,8 @@ public class RefreshMaterializedViewRequest {
 
   private String cluster = null;
 
+  private Integer outputLimit = null;
+
   private String manifest = null;
 
   public RefreshMaterializedViewRequest identity(Identity identity) {
@@ -196,13 +198,13 @@ public class RefreshMaterializedViewRequest {
   }
 
   /**
-   * Optional cluster name
+   * Optional cluster name (operational override)
    *
    * @return cluster
    */
   @Schema(
       name = "cluster",
-      description = "Optional cluster name",
+      description = "Optional cluster name (operational override)",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("cluster")
   public String getCluster() {
@@ -213,19 +215,47 @@ public class RefreshMaterializedViewRequest {
     this.cluster = cluster;
   }
 
+  public RefreshMaterializedViewRequest outputLimit(Integer outputLimit) {
+    this.outputLimit = outputLimit;
+    return this;
+  }
+
+  /**
+   * Post-trim cap on view row count after expansion. Valid only for chunker materialized views;
+   * returns 400 if set on other kinds.
+   *
+   * @return outputLimit
+   */
+  @Schema(
+      name = "output_limit",
+      description =
+          "Post-trim cap on view row count after expansion. Valid only for chunker materialized views; returns 400 if set on other kinds. ",
+      requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("output_limit")
+  public Integer getOutputLimit() {
+    return outputLimit;
+  }
+
+  public void setOutputLimit(Integer outputLimit) {
+    this.outputLimit = outputLimit;
+  }
+
   public RefreshMaterializedViewRequest manifest(String manifest) {
     this.manifest = manifest;
     return this;
   }
 
   /**
-   * Optional manifest name
+   * Optional inline JSON-serialized GenevaManifest. Operational override for this refresh only;
+   * does not mutate the view's snapshotted manifest. When omitted, the manifest stored in the
+   * view's metadata is used.
    *
    * @return manifest
    */
   @Schema(
       name = "manifest",
-      description = "Optional manifest name",
+      description =
+          "Optional inline JSON-serialized GenevaManifest. Operational override for this refresh only; does not mutate the view's snapshotted manifest. When omitted, the manifest stored in the view's metadata is used. ",
       requiredMode = Schema.RequiredMode.NOT_REQUIRED)
   @JsonProperty("manifest")
   public String getManifest() {
@@ -255,6 +285,7 @@ public class RefreshMaterializedViewRequest {
         && Objects.equals(
             this.intraApplierConcurrency, refreshMaterializedViewRequest.intraApplierConcurrency)
         && Objects.equals(this.cluster, refreshMaterializedViewRequest.cluster)
+        && Objects.equals(this.outputLimit, refreshMaterializedViewRequest.outputLimit)
         && Objects.equals(this.manifest, refreshMaterializedViewRequest.manifest);
   }
 
@@ -268,6 +299,7 @@ public class RefreshMaterializedViewRequest {
         concurrency,
         intraApplierConcurrency,
         cluster,
+        outputLimit,
         manifest);
   }
 
@@ -284,6 +316,7 @@ public class RefreshMaterializedViewRequest {
         .append(toIndentedString(intraApplierConcurrency))
         .append("\n");
     sb.append("    cluster: ").append(toIndentedString(cluster)).append("\n");
+    sb.append("    outputLimit: ").append(toIndentedString(outputLimit)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("}");
     return sb.toString();
